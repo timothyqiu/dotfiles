@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Do nothing if not running interactively
+[[ $- != *i* ]] && return
+
+# Aliases
+case "${OSTYPE}" in
+darwin*)
+    alias ls="ls -G"
+    ;;
+linux*)
+    alias ls="ls --color"
+    ;;
+esac
+
+alias ll='ls -l'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# Bash completion
+if which brew > /dev/null && [ -f "$(brew --prefix)/etc/bash_completion" ]; then
+    . "$(brew --prefix)/etc/bash_completion"
+fi
+
+# PyEnv & PyEnv VirtualEnv
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi

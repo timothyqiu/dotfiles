@@ -1,0 +1,32 @@
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
+
+" eye candy
+set background=dark
+
+" for quick movement
+set relativenumber
+
+" time-saver
+set statusline=
+set statusline+=[%n]\ %f
+set statusline+=%=
+set statusline+=[%{strlen(&fenc)?&fenc:&enc}%{&bomb?',BOM':''}]
+set statusline+=[%{strlen(&ft)?&ft:'?'}]
+set statusline+=[%{&fileformat}]
+set statusline+=[%c%V,%l]
+set statusline+=[%P]
+
+" show possible mistakes
+set listchars=tab:→\ ,trail:␣
+set list
+set colorcolumn=
+
+" spaces matters
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+set noexpandtab
+
+" ack.vim: use the silver searcher instead
+let g:ackprg = 'ag --vimgrep'
