@@ -28,3 +28,6 @@ if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -
 
 # RbEnv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+# NodEnv
+if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
