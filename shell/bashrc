@@ -3,6 +3,9 @@
 # Do nothing if not running interactively
 [[ $- != *i* ]] && return
 
+# Prompt
+export PS1='\u@\h \W$(__git_ps1) \$ '
+
 # Aliases
 case "${OSTYPE}" in
 darwin*)
