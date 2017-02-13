@@ -2,6 +2,7 @@
 	email = timothyqiu32@gmai"l.c"om
 	name = Timothy Qiu
 [core]
+	editor = vim
 	excludesfile = ~/.gitignore_global
 [color]
 	ui = true
