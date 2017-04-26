@@ -1,5 +1,15 @@
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
+" plugins
+call plug#begin()
+
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mileszs/ack.vim'
+Plug 'w0rp/ale'
+Plug 'davidhalter/jedi-vim'
+
+call plug#end()
 
 " eye candy
 set background=dark
