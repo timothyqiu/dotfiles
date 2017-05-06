@@ -39,5 +39,8 @@ set softtabstop=4
 set tabstop=4
 set noexpandtab
 
+" ale: visual config
+let g:ale_sign_column_always = 1
+
 " ack.vim: use the silver searcher instead
 let g:ackprg = 'ag --vimgrep'
