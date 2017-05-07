@@ -9,11 +9,14 @@ Plug 'tpope/vim-unimpaired'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
+Plug 'maralla/completor.vim'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeFind' }
 
 call plug#end()
 
 " eye candy
 set background=dark
+set wildignore+=*.pyc,__pycache__/
 
 " for quick movement
 set relativenumber
@@ -38,6 +41,9 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 set noexpandtab
+
+" NERDTree: CTRL-N
+map <C-n> :NERDTreeFind<CR>
 
 " ale: visual config
 let g:ale_sign_column_always = 1
