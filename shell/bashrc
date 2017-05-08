@@ -4,6 +4,9 @@
 [[ $- != *i* ]] && return
 
 # Prompt
+GIT_PS1_STATESEPARATOR=
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWUPSTREAM=true
 export PS1='\u@\h \W$(__git_ps1) \$ '
 
 # Aliases
