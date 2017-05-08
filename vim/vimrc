@@ -11,6 +11,7 @@ Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
 Plug 'maralla/completor.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeFind' }
+Plug 'posva/vim-vue'
 
 call plug#end()
 
@@ -48,7 +49,7 @@ let NERDTreeQuitOnOpen = 1
 map <C-n> :NERDTreeFind<CR>
 
 " ale: visual config
-let g:ale_sign_column_always = 1
+let g:ale_lint_on_text_changed = 'never'
 
 " ack.vim: use the silver searcher instead
 let g:ackprg = 'ag --vimgrep'
