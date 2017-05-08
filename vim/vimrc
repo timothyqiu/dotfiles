@@ -16,7 +16,7 @@ call plug#end()
 
 " eye candy
 set background=dark
-set wildignore+=*.pyc,__pycache__/
+set wildignore+=*.pyc,*/__pycache__,*/node_modules
 
 " for quick movement
 set relativenumber
@@ -42,7 +42,9 @@ set softtabstop=4
 set tabstop=4
 set noexpandtab
 
-" NERDTree: CTRL-N
+" NERDTree
+let NERDTreeRespectWildIgnore = 1
+let NERDTreeQuitOnOpen = 1
 map <C-n> :NERDTreeFind<CR>
 
 " ale: visual config
