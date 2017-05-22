@@ -12,6 +12,7 @@ Plug 'w0rp/ale'
 Plug 'maralla/completor.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeFind' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
+Plug 'vim-scripts/a.vim', { 'for': ['c', 'cpp'] }
 
 call plug#end()
 
