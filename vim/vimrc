@@ -19,7 +19,7 @@ call plug#end()
 " eye candy
 set background=dark
 set hlsearch
-set wildignore+=*.pyc,*/__pycache__,*/node_modules,*/htmlcov
+set wildignore+=*.pyc,*/__pycache__,*/node_modules,*/htmlcov,*.o,*.obj
 
 " for quick movement
 set relativenumber
