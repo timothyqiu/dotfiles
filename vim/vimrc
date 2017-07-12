@@ -30,6 +30,7 @@ set relativenumber
 set statusline=
 set statusline+=[%n]\ %f
 set statusline+=%=
+set statusline+=%m
 set statusline+=[%{strlen(&fenc)?&fenc:&enc}%{&bomb?',BOM':''}]
 set statusline+=[%{strlen(&ft)?&ft:'?'}]
 set statusline+=[%{&fileformat}]
