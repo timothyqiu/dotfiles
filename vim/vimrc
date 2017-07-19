@@ -22,6 +22,7 @@ call plug#end()
 set background=dark
 set hlsearch
 set wildignore+=*.pyc,*/__pycache__,*/node_modules,*/htmlcov,*.o,*.obj
+set scrolloff=4
 
 " for quick movement
 set relativenumber
