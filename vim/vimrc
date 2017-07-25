@@ -21,7 +21,7 @@ call plug#end()
 " eye candy
 set background=dark
 set hlsearch
-set wildignore+=*.pyc,*/__pycache__,*/node_modules,*/htmlcov,*.o,*.obj
+set wildignore+=*.pyc,*/__pycache__,*/node_modules,*/htmlcov,*.o,*.obj,*/.git
 set scrolloff=4
 
 " for quick movement
@@ -52,6 +52,8 @@ set noexpandtab
 " NERDTree
 let NERDTreeRespectWildIgnore = 1
 let NERDTreeQuitOnOpen = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeShowHidden = 1
 map <C-n> :NERDTreeFind<CR>
 
 " ale: visual config
