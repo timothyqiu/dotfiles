@@ -50,6 +50,9 @@ set softtabstop=4
 set tabstop=4
 set noexpandtab
 
+" allow hidden buffers for bulk editing of files
+set hidden
+
 " NERDTree
 let NERDTreeRespectWildIgnore = 1
 let NERDTreeQuitOnOpen = 1
