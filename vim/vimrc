@@ -22,7 +22,7 @@ call plug#end()
 " eye candy
 set background=dark
 set hlsearch
-set wildignore+=*.pyc,*/__pycache__,*/node_modules,*/htmlcov,*.o,*.obj,*/.git
+set wildignore+=*.pyc,*/__pycache__,*/node_modules,*/htmlcov,*.o,*.obj,*/.git,*.swp
 set scrolloff=4
 
 " for quick movement
