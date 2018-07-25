@@ -10,12 +10,15 @@ Plug 'tpope/vim-unimpaired'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
-Plug 'maralla/completor.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeFind' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'vim-scripts/a.vim', { 'for': ['c', 'cpp'] }
 Plug 'keith/swift.vim', { 'for': ['swift'] }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
+
+if has('python') || has('python3')
+Plug 'maralla/completor.vim'
+endif
 
 call plug#end()
 
