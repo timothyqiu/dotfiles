@@ -53,6 +53,15 @@ set softtabstop=4
 set tabstop=4
 set noexpandtab
 
+" c indent options
+" :0  => don't indent `case` in `switch`
+" l1  => brace after `case`
+" g0  => don't indent `public` in `class`
+" N-s => don't indent things in `namespace`
+" E-s => don't indent things in `extern "C"`
+" (0  => indent newlines in parentheseses
+set cinoptions=:0l1g0N-sE-s(0
+
 " allow hidden buffers for bulk editing of files
 set hidden
 
