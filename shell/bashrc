@@ -29,8 +29,9 @@ if which brew > /dev/null && [ -f "$(brew --prefix)/etc/bash_completion" ]; then
     . "$(brew --prefix)/etc/bash_completion"
 fi
 
-# PyEnv
+# PyEnv & PyEnv VirtualEnv
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
 # PipEnv
 if which pipenv > /dev/null; then eval "$(pipenv --completion)"; fi
