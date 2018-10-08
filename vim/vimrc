@@ -10,6 +10,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'w0rp/ale'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeFind' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'vim-scripts/a.vim', { 'for': ['c', 'cpp'] }
@@ -36,6 +37,7 @@ set statusline=
 set statusline+=[%n]\ %f
 set statusline+=%=
 set statusline+=%m
+set statusline+=%{gutentags#statusline('[',']')}
 set statusline+=[%{strlen(&fenc)?&fenc:&enc}%{&bomb?',BOM':''}]
 set statusline+=[%{strlen(&ft)?&ft:'?'}]
 set statusline+=[%{&fileformat}]
@@ -72,8 +74,21 @@ let NERDTreeMinimalUI = 1
 let NERDTreeShowHidden = 1
 map <C-n> :NERDTreeFind<CR>
 
+" Ctrl-P
+let g:ctrlp_working_path_mode = 'ra'
+
 " ale: visual config
 let g:ale_lint_on_text_changed = 'never'
 
 " ack.vim: use the silver searcher instead
 let g:ackprg = 'ag --vimgrep'
+
+" vim-gutentags
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+if !isdirectory(s:vim_tags)
+silent! call mkdir(s:vim_tags, 'p')
+endif
