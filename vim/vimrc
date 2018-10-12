@@ -9,8 +9,7 @@ Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-unimpaired'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
-Plug 'w0rp/ale'
-Plug 'ludovicchabant/vim-gutentags'
+"Plug 'w0rp/ale'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeFind' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'vim-scripts/a.vim', { 'for': ['c', 'cpp'] }
@@ -19,6 +18,10 @@ Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
 
 if has('python') || has('python3')
 Plug 'maralla/completor.vim'
+endif
+
+if has('job')
+Plug 'ludovicchabant/vim-gutentags'
 endif
 
 call plug#end()
@@ -37,7 +40,9 @@ set statusline=
 set statusline+=[%n]\ %f
 set statusline+=%=
 set statusline+=%m
+if has('g:gutentags_enabled')
 set statusline+=%{gutentags#statusline('[',']')}
+endif
 set statusline+=[%{strlen(&fenc)?&fenc:&enc}%{&bomb?',BOM':''}]
 set statusline+=[%{strlen(&ft)?&ft:'?'}]
 set statusline+=[%{&fileformat}]
