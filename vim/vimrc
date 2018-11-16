@@ -67,7 +67,7 @@ set noexpandtab
 " N-s => don't indent things in `namespace`
 " E-s => don't indent things in `extern "C"`
 " (0  => indent newlines in parentheseses
-set cinoptions=:0l1g0N-sE-s(0
+set cinoptions=:0l1g0N-sE-s(0j1
 
 " allow hidden buffers for bulk editing of files
 set hidden
