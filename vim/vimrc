@@ -82,8 +82,8 @@ map <C-n> :NERDTreeFind<CR>
 " Ctrl-P
 let g:ctrlp_working_path_mode = 'ra'
 
-" ale: visual config
-let g:ale_lint_on_text_changed = 'never'
+" a.vim
+let g:alternateNoDefaultAlternate = 1
 
 " ack.vim: use the silver searcher instead
 let g:ackprg = 'ag --vimgrep'
