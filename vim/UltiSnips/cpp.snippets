@@ -1,0 +1,30 @@
+snippet once "Header guard" b
+#ifndef ${1:IDENTIFIER}
+#define $1
+
+$0
+
+#endif  // $1
+endsnippet
+
+snippet ns "Namespace" b
+namespace $1 {
+$0
+}  // namespace $1
+endsnippet
+
+snippet cl "Class" b
+class ${1:`!p snip.rv = snip.basename or 'name'`}
+{
+public:
+	$1($1 const& other) = delete;
+	$1($1&& other) noexcept;
+
+	$1& operator=($1 const& rhs) = delete;
+
+	foo: $2
+
+private:
+	$0
+};
+endsnippet

@@ -17,12 +17,14 @@ Plug 'keith/swift.vim', { 'for': ['swift'] }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
 
 if has('python') || has('python3')
-Plug 'maralla/completor.vim'
+	Plug 'maralla/completor.vim'
 endif
 
 if has('job')
-Plug 'ludovicchabant/vim-gutentags'
+	Plug 'ludovicchabant/vim-gutentags'
 endif
+
+Plug 'SirVer/ultisnips', { 'tag': '3.1' }
 
 call plug#end()
 
@@ -41,7 +43,7 @@ set statusline+=[%n]\ %f
 set statusline+=%=
 set statusline+=%m
 if has('g:gutentags_enabled')
-set statusline+=%{gutentags#statusline('[',']')}
+	set statusline+=%{gutentags#statusline('[',']')}
 endif
 set statusline+=[%{strlen(&fenc)?&fenc:&enc}%{&bomb?',BOM':''}]
 set statusline+=[%{strlen(&ft)?&ft:'?'}]
@@ -95,5 +97,9 @@ let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 if !isdirectory(s:vim_tags)
-silent! call mkdir(s:vim_tags, 'p')
+	silent! call mkdir(s:vim_tags, 'p')
 endif
+
+" UltiSnips
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsJumpForwardTrigger="<CR>"
