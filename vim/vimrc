@@ -17,7 +17,9 @@ Plug 'keith/swift.vim', { 'for': ['swift'] }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
 
 if has('python') || has('python3')
-	Plug 'maralla/completor.vim'
+	if has('job') && has('timers') && has('lambda')
+		Plug 'maralla/completor.vim'
+	endif
 	Plug 'SirVer/ultisnips', { 'tag': '3.1' }
 endif
 
