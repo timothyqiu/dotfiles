@@ -24,7 +24,7 @@ if has('python') || has('python3')
 	Plug 'SirVer/ultisnips', { 'tag': '3.1' }
 endif
 
-if has('job')
+if has('job') && executable('ctags')
 	Plug 'ludovicchabant/vim-gutentags'
 endif
 
