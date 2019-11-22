@@ -1,3 +1,1 @@
-ALEDisable
-
 call RagtagInit()

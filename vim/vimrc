@@ -16,6 +16,8 @@ Plug 'vim-scripts/a.vim', { 'for': ['c', 'cpp'] }
 Plug 'keith/swift.vim', { 'for': ['swift'] }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
+Plug 'chr4/nginx.vim'
+Plug 'lifepillar/pgsql.vim'
 
 if has('python') || has('python3')
 	if has('job') && has('timers') && has('lambda')
@@ -33,7 +35,7 @@ call plug#end()
 " eye candy
 set background=dark
 set hlsearch
-set wildignore+=*.pyc,*/__pycache__,*/node_modules,*/htmlcov,*.o,*.obj,*/.git,*.swp
+set wildignore+=*.pyc,*/__pycache__,*/node_modules,*/htmlcov,*.o,*.obj,*/.git,*.swp,*/build
 set scrolloff=4
 
 " for quick movement
@@ -55,7 +57,6 @@ set statusline+=[%P]
 
 " show possible mistakes
 set listchars=tab:→\ ,trail:␣
-set list
 set colorcolumn=
 
 " spaces matters
