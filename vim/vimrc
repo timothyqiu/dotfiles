@@ -46,7 +46,7 @@ set statusline=
 set statusline+=[%n]\ %f
 set statusline+=%=
 set statusline+=%m
-if has('g:gutentags_enabled')
+if has('job') && executable('ctags')
 	set statusline+=%{gutentags#statusline('[',']')}
 endif
 set statusline+=[%{strlen(&fenc)?&fenc:&enc}%{&bomb?',BOM':''}]
@@ -57,7 +57,9 @@ set statusline+=[%P]
 
 " show possible mistakes
 set listchars=tab:→\ ,trail:␣
+set list
 set colorcolumn=
+highlight SpecialKey ctermfg=DarkGray
 
 " spaces matters
 set shiftwidth=4
