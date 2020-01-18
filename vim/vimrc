@@ -8,7 +8,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-unimpaired'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'mileszs/ack.vim'
 "Plug 'w0rp/ale'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeFind' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
@@ -18,6 +17,10 @@ Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
 Plug 'chr4/nginx.vim'
 Plug 'lifepillar/pgsql.vim'
+
+if executable('ag')
+	Plug 'gabesoft/vim-ags'
+endif
 
 if has('python') || has('python3')
 	if has('job') && has('timers') && has('lambda')
@@ -92,8 +95,11 @@ let g:ctrlp_working_path_mode = 'ra'
 " a.vim
 let g:alternateNoDefaultAlternate = 1
 
-" ack.vim: use the silver searcher instead
-let g:ackprg = 'ag --vimgrep'
+" vim-ags
+nnoremap <Leader>s :Ags<Space><C-R>=expand('<cword>')<CR><CR>
+vnoremap <Leader>s y:Ags<Space><C-R>='"' . escape(@", '"*?()[]{}.') . '"'<CR><CR>
+nnoremap <Leader>a :Ags<Space>
+nnoremap <Leader><Leader>a :AgsQuit<CR>
 
 " vim-gutentags
 let s:vim_tags = expand('~/.cache/tags')
