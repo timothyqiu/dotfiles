@@ -39,6 +39,7 @@ call plug#end()
 set background=dark
 set hlsearch
 set wildignore+=*.pyc,*/__pycache__,*/node_modules,*/htmlcov,*.o,*.obj,*/.git,*.swp,*/build
+set wildmode=longest:full,full
 set scrolloff=4
 
 " for quick movement
