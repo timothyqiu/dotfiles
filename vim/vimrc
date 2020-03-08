@@ -17,6 +17,7 @@ Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
 Plug 'chr4/nginx.vim'
 Plug 'lifepillar/pgsql.vim'
+Plug 'christoomey/vim-system-copy'
 
 if executable('ag')
 	Plug 'gabesoft/vim-ags'
