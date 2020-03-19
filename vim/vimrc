@@ -27,7 +27,7 @@ if has('python') || has('python3')
 	if has('job') && has('timers') && has('lambda')
 		Plug 'maralla/completor.vim'
 	endif
-	Plug 'SirVer/ultisnips', { 'tag': '3.1' }
+	Plug 'SirVer/ultisnips'
 endif
 
 if has('job') && executable('ctags')
@@ -39,7 +39,7 @@ call plug#end()
 " eye candy
 set background=dark
 set hlsearch
-set wildignore+=*.pyc,*/__pycache__,*/node_modules,*/htmlcov,*.o,*.obj,*/.git,*.swp,*/build
+set wildignore+=*.pyc,*/__pycache__,*/node_modules,*/htmlcov,*/build,*.o,*.obj,*/.git,*.swp
 set wildmode=longest:full,full
 set scrolloff=4
 

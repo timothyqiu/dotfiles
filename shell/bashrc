@@ -22,7 +22,7 @@ esac
 alias ll='ls -l'
 alias cp='cp -i'
 alias mv='mv -i'
-alias tree='tree -I "*.pyc|__pycache__|node_modules|htmlcov|*.o|*.obj|.git"'
+alias tree='tree -I "*.pyc|__pycache__|node_modules|htmlcov|build|*.o|*.obj|.git|*.swp"'
 
 # Bash completion
 if which brew > /dev/null && [ -f "$(brew --prefix)/etc/bash_completion" ]; then
