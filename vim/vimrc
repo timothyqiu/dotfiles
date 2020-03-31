@@ -18,6 +18,7 @@ Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
 Plug 'chr4/nginx.vim'
 Plug 'lifepillar/pgsql.vim'
 Plug 'christoomey/vim-system-copy'
+Plug 'itchyny/lightline.vim'
 
 if executable('ag')
 	Plug 'gabesoft/vim-ags'
@@ -45,20 +46,7 @@ set scrolloff=4
 
 " for quick movement
 set relativenumber
-
-" time-saver
-set statusline=
-set statusline+=[%n]\ %f
-set statusline+=%=
-set statusline+=%m
-if has('job') && executable('ctags')
-	set statusline+=%{gutentags#statusline('[',']')}
-endif
-set statusline+=[%{strlen(&fenc)?&fenc:&enc}%{&bomb?',BOM':''}]
-set statusline+=[%{strlen(&ft)?&ft:'?'}]
-set statusline+=[%{&fileformat}]
-set statusline+=[%c%V,%l]
-set statusline+=[%P]
+set number
 
 " show possible mistakes
 set listchars=tab:→\ ,trail:␣
@@ -119,3 +107,6 @@ let g:UltiSnipsJumpForwardTrigger="<CR>"
 
 " vim-clang
 let g:clang_compilation_database = './build'
+
+" vim-lightline
+set noshowmode  " since it's already in the lightline
