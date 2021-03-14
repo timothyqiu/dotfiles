@@ -11,7 +11,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeFind' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'vim-scripts/a.vim', { 'for': ['c', 'cpp'] }
-Plug 'justmao945/vim-clang', { 'for': ['c', 'cpp'] }
+" Plug 'justmao945/vim-clang', { 'for': ['c', 'cpp'] }
 Plug 'keith/swift.vim', { 'for': ['swift'] }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
@@ -19,6 +19,8 @@ Plug 'chr4/nginx.vim'
 Plug 'lifepillar/pgsql.vim'
 Plug 'christoomey/vim-system-copy'
 Plug 'itchyny/lightline.vim'
+Plug 'cespare/vim-toml'
+Plug 'skywind3000/asyncrun.vim'
 
 if executable('ag')
 	Plug 'gabesoft/vim-ags'
@@ -72,6 +74,16 @@ set cinoptions=:0l1g0N-sE-s(0j1
 " allow hidden buffers for bulk editing of files
 set hidden
 
+fun! ShowFuncName()
+  let lnum = line(".")
+  let col = col(".")
+  echohl ModeMsg
+  echo getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW'))
+  echohl None
+  call search("\\%" . lnum . "l" . "\\%" . col . "c")
+endfun
+nnoremap <leader>f :call ShowFuncName() <CR>
+
 " NERDTree
 let NERDTreeRespectWildIgnore = 1
 let NERDTreeQuitOnOpen = 1
@@ -110,3 +122,9 @@ let g:clang_compilation_database = './build'
 
 " vim-lightline
 set noshowmode  " since it's already in the lightline
+
+" asyncrun
+let g:asyncrun_open=8
+let g:asyncrun_bell=1
+nnoremap <leader>c :AsyncRun cmake --build build <cr>
+nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
