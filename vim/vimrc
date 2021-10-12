@@ -4,23 +4,34 @@
 call plug#begin()
 
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-speeddating'
 
 Plug 'skywind3000/asyncrun.vim'
 Plug 'skywind3000/asynctasks.vim'
 
-Plug 'morhetz/gruvbox'
+Plug 'gruvbox-community/gruvbox'
+Plug 'vimwiki/vimwiki'
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeFind' }
 Plug 'vim-scripts/a.vim', { 'for': ['c', 'cpp'] }
+Plug 'vim-scripts/restore_view.vim'
+Plug 'pseewald/vim-anyfold'
 Plug 'christoomey/vim-system-copy'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'luochen1990/rainbow'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'thinca/vim-localrc'
 
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': ['python'] }
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
@@ -29,10 +40,7 @@ Plug 'lifepillar/pgsql.vim'
 Plug 'cespare/vim-toml'
 Plug 'tikhomirov/vim-glsl'
 Plug 'octol/vim-cpp-enhanced-highlight'
-
-if executable('ag')
-	Plug 'gabesoft/vim-ags'
-endif
+Plug 'calviken/vim-gdscript3'
 
 if has('python') || has('python3')
 	Plug 'SirVer/ultisnips'
@@ -42,18 +50,6 @@ if has('job') && executable('ctags')
 	Plug 'ludovicchabant/vim-gutentags'
 	Plug 'skywind3000/gutentags_plus'
 endif
-
-function! BuildYCM(info)
-  " info is a dictionary with 3 fields
-  " - name:   name of the plugin
-  " - status: 'installed', 'updated', or 'unchanged'
-  " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status == 'installed' || a:info.force
-    !./install.py --clangd-completer
-  endif
-endfunction
-
-Plug 'ycm-core/YouCompleteMe', { 'do': function('BuildYCM') }
 
 call plug#end()
 
@@ -79,7 +75,7 @@ set hlsearch
 set cursorline
 
 set wildignore+=*/node_modules/*
-set wildignore+=*/build/*
+set wildignore+=*/build
 set wildignore+=*/.git/*
 set wildignore+=*/__pycache__/*
 set wildignore+=*.pyc
@@ -92,18 +88,18 @@ set scrolloff=4
 set signcolumn=number
 
 " folding
-set foldmethod=syntax
-set foldlevelstart=99
-set foldminlines=5
-set foldopen-=hor
-set foldopen+=jump
+set viewoptions=folds,slash,unix
+set foldcolumn=2
+set foldlevel=99
 nnoremap <space> za
+
+" let g:anyfold_fold_toplevel=1
+let g:anyfold_fold_comments=1
+autocmd Filetype * AnyFoldActivate
 
 " for quick movement
 set relativenumber
 set number
-nnoremap }  }zz
-nnoremap {  {zz
 
 " show possible mistakes
 set listchars=tab:→\ ,trail:␣
@@ -129,37 +125,60 @@ set cinoptions=:0l1g0N-sE-s(0j1
 set hidden
 
 " do something on save
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
-autocmd BufWritePost CMakeLists.txt AsyncRun cmake -B build -S .
-autocmd BufWritePost conanfile.txt AsyncRun conan install -if build .
+"autocmd BufWritePost CMakeLists.txt AsyncRun cmake -B build -S .
+"autocmd BufWritePost conanfile.txt AsyncRun conan install -if build .
+
+" --------------------
+"  vim-lsp
+" --------------------
+
+let g:lsp_format_sync_timeout = 800
+let g:lsp_diagnostics_echo_cursor = 1
+
+function! s:on_lsp_buffer_enabled() abort
+	setlocal omnifunc=lsp#complete
+	if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+	nmap <buffer> gd <plug>(lsp-definition)
+	nmap <buffer> gs <plug>(lsp-document-symbol-search)
+	nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+	nmap <buffer> gr <plug>(lsp-references)
+	nmap <buffer> gi <plug>(lsp-implementation)
+	" nmap <buffer> gt <plug>(lsp-type-definition)
+	nmap <buffer> <leader>rn <plug>(lsp-rename)
+	nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+	nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+	nmap <buffer> K <plug>(lsp-hover)
+	inoremap <buffer> <expr><c-f> lsp#scroll(+8)
+	inoremap <buffer> <expr><c-b> lsp#scroll(-8)
+
+	" refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+	au!
+	" call s:on_lsp_buffer_enabled only for languages that has the server registered.
+	autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+let g:lsp_settings = {
+			\ 'clangd': { 'args': ["-header-insertion=never"] },
+			\}
+let g:lsp_settings_root_markers = ['.git', 'conanfile.txt']
 
 " --------------------
 "  NERDTree
 " --------------------
-let NERDTreeRespectWildIgnore = 1
-let NERDTreeQuitOnOpen = 1
-let NERDTreeMinimalUI = 1
-let NERDTreeShowHidden = 1
+let g:NERDTreeRespectWildIgnore = 1
+let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeAutoDeleteBuffer = 1
 map <C-n> :NERDTreeFind<CR>
-
-" --------------------
-"  Ctrl-P
-" --------------------
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_root_markers = ['conanfile.txt', '.root']
 
 " --------------------
 "  a.vim
 " --------------------
 let g:alternateNoDefaultAlternate = 1
-
-" --------------------
-"  vim-ags
-" --------------------
-nnoremap <Leader>s :Ags<Space><C-R>=expand('<cword>')<CR><CR>
-vnoremap <Leader>s y:Ags<Space><C-R>='"' . escape(@", '"*?()[]{}.') . '"'<CR><CR>
-nnoremap <Leader>a :Ags<Space>
-nnoremap <Leader><Leader>a :AgsQuit<CR>
 
 " --------------------
 "  vim-gutentags
@@ -198,7 +217,9 @@ let g:gutentags_plus_nomap = 0
 "  UltiSnips
 " --------------------
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsJumpForwardTrigger="<CR>"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<cr>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " --------------------
 "  vim-lightline
@@ -211,30 +232,58 @@ let g:lightline = {'colorscheme': 'gruvbox'}
 " --------------------
 let g:asyncrun_open=8
 let g:asyncrun_bell=1
-nnoremap <silent><nowait><leader>q :call asyncrun#quickfix_toggle(6)<cr>
-nnoremap <silent><nowait><leader>r :AsyncTask run<cr>
-nnoremap <silent><nowait><leader>c :AsyncTask build<cr>
-
-" --------------------
-"  YouCompleteMe
-" --------------------
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_auto_hover = ''
-
-nmap <leader>D <plug>(YCMHover)
-
-set completeopt=menu,menuone
-if has('patch-8.0.1000')
-	set completeopt+=noselect
-endif
-if exists('+completepopup')
-	set completepopup=align:menu,border:off,highlight:QuickPreview
-	set completeopt+=popup
-endif
-
-nnoremap gd :YcmCompleter GoTo<cr>
+nmap <silent> <leader>r :AsyncTask project-run<cr>
+nmap <silent> <leader>d :AsyncTask project-debug<cr>
+nmap <silent> <leader>c :AsyncTask project-build<cr>
+nmap <silent> <leader>q :call asyncrun#quickfix_toggle(6)<cr>
 
 " --------------------
 "  Rainbow
 " --------------------
 nnoremap <leader>p :RainbowToggle<cr>
+
+
+" --------------------
+"  asyncomplete.vim
+" --------------------
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+let g:asyncomplete_popup_delay = 500
+let g:asyncomplete_min_chars = 1
+
+" --------------------
+"  asyncomplete.vim
+" --------------------
+
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
+" --------------------
+"  vimwiki
+" --------------------
+
+let g:vimwiki_list = [{
+\ 'path': '~/vimwiki/',
+\ 'path_html': '/tmp/vimwiki-html/',
+\ 'auto_export': 1,
+\ }]
+
+" --------------------
+"  fugitive
+" --------------------
+
+nmap <leader>gs :Gstatus<CR>
+nmap <leader>gd :Gdiff<CR>
+nmap <leader>gc :Gcommit<CR>
+
+" --------------------
+"  fzf
+" --------------------
+
+nmap <silent> <C-P> :GFiles<CR>
+nmap <leader>f :Files<CR>
+nmap <leader>b :BLines<CR>
+nmap <leader>t :BTags<CR>
+nmap <leader>rg :Rg! <C-R><C-W>
