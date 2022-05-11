@@ -9,27 +9,22 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-speeddating'
 
 Plug 'skywind3000/asyncrun.vim'
 Plug 'skywind3000/asynctasks.vim'
 
 Plug 'gruvbox-community/gruvbox'
-Plug 'vimwiki/vimwiki'
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeFind' }
 Plug 'vim-scripts/a.vim', { 'for': ['c', 'cpp'] }
 Plug 'vim-scripts/restore_view.vim'
 Plug 'pseewald/vim-anyfold'
 Plug 'christoomey/vim-system-copy'
-Plug 'luochen1990/rainbow'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'thinca/vim-localrc'
 
@@ -40,10 +35,9 @@ Plug 'lifepillar/pgsql.vim'
 Plug 'cespare/vim-toml'
 Plug 'tikhomirov/vim-glsl'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'calviken/vim-gdscript3'
 
 if has('python') || has('python3')
-	Plug 'SirVer/ultisnips'
+	"Plug 'SirVer/ultisnips'
 endif
 
 if has('job') && executable('ctags')
@@ -69,6 +63,8 @@ endif
 
 " let g:gruvbox_italic=1
 colorscheme gruvbox
+" hack for transparent background
+autocmd VimEnter * hi Normal ctermbg=NONE guibg=NONE
 
 set background=dark
 set hlsearch
@@ -237,11 +233,6 @@ nmap <silent> <leader>d :AsyncTask project-debug<cr>
 nmap <silent> <leader>c :AsyncTask project-build<cr>
 nmap <silent> <leader>q :call asyncrun#quickfix_toggle(6)<cr>
 
-" --------------------
-"  Rainbow
-" --------------------
-nnoremap <leader>p :RainbowToggle<cr>
-
 
 " --------------------
 "  asyncomplete.vim
@@ -252,31 +243,6 @@ inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
 let g:asyncomplete_popup_delay = 500
 let g:asyncomplete_min_chars = 1
-
-" --------------------
-"  asyncomplete.vim
-" --------------------
-
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
-
-" --------------------
-"  vimwiki
-" --------------------
-
-let g:vimwiki_list = [{
-\ 'path': '~/vimwiki/',
-\ 'path_html': '/tmp/vimwiki-html/',
-\ 'auto_export': 1,
-\ }]
-
-" --------------------
-"  fugitive
-" --------------------
-
-nmap <leader>gs :Gstatus<CR>
-nmap <leader>gd :Gdiff<CR>
-nmap <leader>gc :Gcommit<CR>
 
 " --------------------
 "  fzf
