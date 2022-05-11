@@ -8,6 +8,7 @@
 	ui = true
 [advice]
 	statusHints = false
+	detachedHead = false
 [diff]
 	renames = copies
 	mnemonicprefix = true
@@ -20,4 +21,4 @@
 [init]
 	defaultBranch = master
 [include]
-	path = .gitconfig.local
+	path = .local.gitconfig
