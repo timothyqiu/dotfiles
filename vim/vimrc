@@ -35,14 +35,10 @@ Plug 'lifepillar/pgsql.vim'
 Plug 'cespare/vim-toml'
 Plug 'tikhomirov/vim-glsl'
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'zah/nim.vim'
 
 if has('python') || has('python3')
 	"Plug 'SirVer/ultisnips'
-endif
-
-if has('job') && executable('ctags')
-	Plug 'ludovicchabant/vim-gutentags'
-	Plug 'skywind3000/gutentags_plus'
 endif
 
 call plug#end()
@@ -128,6 +124,7 @@ set hidden
 "  vim-lsp
 " --------------------
 
+let g:lsp_use_lua = has('nvim-0.4.0') || (has('lua') && has('patch-8.2.0775'))
 let g:lsp_format_sync_timeout = 800
 let g:lsp_diagnostics_echo_cursor = 1
 
@@ -139,7 +136,7 @@ function! s:on_lsp_buffer_enabled() abort
 	nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
 	nmap <buffer> gr <plug>(lsp-references)
 	nmap <buffer> gi <plug>(lsp-implementation)
-	" nmap <buffer> gt <plug>(lsp-type-definition)
+	nmap <buffer> gt <plug>(lsp-type-definition)
 	nmap <buffer> <leader>rn <plug>(lsp-rename)
 	nmap <buffer> [g <plug>(lsp-previous-diagnostic)
 	nmap <buffer> ]g <plug>(lsp-next-diagnostic)
@@ -157,8 +154,9 @@ augroup lsp_install
 augroup END
 
 let g:lsp_settings = {
-			\ 'clangd': { 'args': ["-header-insertion=never"] },
-			\}
+\	'clangd': { 'args': ["-header-insertion=never"] },
+\	'godot': { 'disabled': v:true },
+\}
 let g:lsp_settings_root_markers = ['.git', 'conanfile.txt']
 
 " --------------------
@@ -175,39 +173,6 @@ map <C-n> :NERDTreeFind<CR>
 "  a.vim
 " --------------------
 let g:alternateNoDefaultAlternate = 1
-
-" --------------------
-"  vim-gutentags
-" --------------------
-let g:gutentags_add_default_project_roots = 0
-let g:gutentags_project_root = ['.git', 'conanfile.txt', '.root']
-
-let g:gutentags_ctags_tagfile = '.tags'
-
-let g:gutentags_modules = []
-if executable('ctags')
-	let g:gutentags_modules += ['ctags']
-endif
-if executable('gtags-cscope') && executable('gtags')
-	let g:gutentags_modules += ['gtags_cscope']
-endif
-
-let s:vim_tags = expand('~/.cache/tags')
-let g:gutentags_cache_dir = s:vim_tags
-if !isdirectory(s:vim_tags)
-	silent! call mkdir(s:vim_tags, 'p')
-endif
-
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-let g:gutentags_auto_add_gtags_cscope = 0
-
-" --------------------
-"  gutentags_plus
-" --------------------
-let g:gutentags_plus_switch = 1
-let g:gutentags_plus_nomap = 0
 
 " --------------------
 "  UltiSnips
@@ -229,7 +194,6 @@ let g:lightline = {'colorscheme': 'gruvbox'}
 let g:asyncrun_open=8
 let g:asyncrun_bell=1
 nmap <silent> <leader>r :AsyncTask project-run<cr>
-nmap <silent> <leader>d :AsyncTask project-debug<cr>
 nmap <silent> <leader>c :AsyncTask project-build<cr>
 nmap <silent> <leader>q :call asyncrun#quickfix_toggle(6)<cr>
 
@@ -250,6 +214,5 @@ let g:asyncomplete_min_chars = 1
 
 nmap <silent> <C-P> :GFiles<CR>
 nmap <leader>f :Files<CR>
-nmap <leader>b :BLines<CR>
 nmap <leader>t :BTags<CR>
 nmap <leader>rg :Rg! <C-R><C-W>
