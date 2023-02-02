@@ -36,6 +36,7 @@ Plug 'cespare/vim-toml'
 Plug 'tikhomirov/vim-glsl'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'zah/nim.vim'
+Plug 'ziglang/zig.vim'
 
 if has('python') || has('python3')
 	"Plug 'SirVer/ultisnips'
@@ -127,6 +128,8 @@ set hidden
 let g:lsp_use_lua = has('nvim-0.4.0') || (has('lua') && has('patch-8.2.0775'))
 let g:lsp_format_sync_timeout = 800
 let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_virtual_text_enabled = 1
+let g:lsp_diagnostics_virtual_text_align = "right"
 
 function! s:on_lsp_buffer_enabled() abort
 	setlocal omnifunc=lsp#complete
@@ -136,7 +139,7 @@ function! s:on_lsp_buffer_enabled() abort
 	nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
 	nmap <buffer> gr <plug>(lsp-references)
 	nmap <buffer> gi <plug>(lsp-implementation)
-	nmap <buffer> gt <plug>(lsp-type-definition)
+	"nmap <buffer> gt <plug>(lsp-type-definition)
 	nmap <buffer> <leader>rn <plug>(lsp-rename)
 	nmap <buffer> [g <plug>(lsp-previous-diagnostic)
 	nmap <buffer> ]g <plug>(lsp-next-diagnostic)
