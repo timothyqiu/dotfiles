@@ -33,6 +33,9 @@ vim.opt.wildignore = {
     '*.swp',
 }
 
+vim.opt.listchars="tab:→ ,trail:␣"
+vim.opt.list = true
+
 -- netrw
 vim.g.netrw_altv = 1
 vim.g.netrw_winsize = 75

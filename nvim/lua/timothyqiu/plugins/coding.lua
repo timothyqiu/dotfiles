@@ -32,7 +32,7 @@ return {
 			vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")',
 				{ expr = true, silent = true, replace_keycodes = false })
 			vim.g.copilot_no_tab_map = true
-			vim.g.copilot_filetypes = { ["*"] = false, cpp = true, c = true, zig = true, lua = true }
+			vim.g.copilot_filetypes = { ["*"] = false, cpp = true, c = true, zig = true, lua = true, python = true }
 		end
 	},
 }
