@@ -2,8 +2,7 @@
 	email = timothyqiu32@gmai"l.c"om
 	name = Haoyu Qiu
 [core]
-	editor = vim
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.config/git/ignore
 [color]
 	ui = true
 [advice]
@@ -20,5 +19,7 @@
 	ff = only
 [init]
 	defaultBranch = master
-[include]
-	path = .local.gitconfig
+[http "https://github.com"]
+	proxy = http://127.0.0.1:7890/
+[credential "https://github.com"]
+	helper = !pass github-pat
