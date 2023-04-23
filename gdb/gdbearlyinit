@@ -1,0 +1,2 @@
+set startup-quietly on
+set debuginfod enabled off
