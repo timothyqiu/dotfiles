@@ -21,6 +21,9 @@ return {
                 builtin.grep_string({ search = vim.fn.input("Grep > ") })
             end)
             vim.keymap.set("n", "<leader>pg", builtin.grep_string, {})
+
+            -- Document Symbols
+            vim.keymap.set("n", "<leader>ds", builtin.lsp_document_symbols, {})
         end
     },
 }
