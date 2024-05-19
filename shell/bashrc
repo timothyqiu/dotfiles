@@ -26,6 +26,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
+alias tree='tree --gitignore'
 alias n='nvim'
 
 # Godot Stuff
