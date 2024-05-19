@@ -44,52 +44,10 @@ return {
             lsp.setup()
 
             require("lspconfig").zls.setup{}
+            require("lspconfig").ols.setup{}
 
             -- add command :A to :ClangdSwitchSourceHeader
             vim.api.nvim_create_user_command("A", "ClangdSwitchSourceHeader", {})
-
-            -- local ls = require("luasnip")
-            -- local t = ls.text_node
-            -- local i = ls.insert_node
-            -- ls.add_snippets("zig", {
-            --     ls.snippet("std", {
-            --         t("const std = @import(\"std\");"),
-            --     }),
-            --     ls.snippet("ma", {
-            --         t("pub fn main() !void {"),
-            --         i(0),
-            --         t("}"),
-            --     }),
-            --     ls.snippet("tst", {
-            --         t("test \""),
-            --         i(1),
-            --         t("\" {"),
-            --         i(0),
-            --         t("}"),
-            --     }),
-            --     ls.snippet("rts", {
-            --         t("return switch ("),
-            --         i(1),
-            --         t(") {"),
-            --         i(0),
-            --         t("};"),
-            --     }),
-            --     ls.snippet("st", {
-            --         t("struct {"),
-            --         i(0),
-            --         t("};"),
-            --     }),
-            --     ls.snippet("en", {
-            --         t("enum {"),
-            --         i(0),
-            --         t("};"),
-            --     }),
-            --     ls.snippet("un", {
-            --         t("union {"),
-            --         i(0),
-            --         t("};"),
-            --     }),
-            -- })
         end
     },
 }

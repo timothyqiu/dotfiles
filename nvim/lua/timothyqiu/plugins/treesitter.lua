@@ -39,5 +39,9 @@ return {
     {
         "nvim-treesitter/nvim-treesitter-context",
         config = true,
+        opts = {
+            multiline_threshold = 8,
+            mode = 'topline',
+        },
     }
 }
