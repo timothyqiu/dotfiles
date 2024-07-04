@@ -19,6 +19,9 @@ else
 	export PS1='\u@\h \W \$ '
 fi
 
+. "$HOME/.asdf/asdf.sh"
+. "$HOME/.asdf/completions/asdf.bash"
+
 hash nvim 2>/dev/null && export EDITOR=nvim
 
 alias ll='ls -l'
