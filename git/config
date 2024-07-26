@@ -24,3 +24,6 @@
 	proxy = http://127.0.0.1:7890/
 [credential "https://github.com"]
 	helper = !pass github-pat
+[diff "lockb"]
+	binary = true
+	textconv = bun
