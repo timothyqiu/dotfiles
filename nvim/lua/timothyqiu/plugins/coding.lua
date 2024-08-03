@@ -25,13 +25,6 @@ return {
             })
         end,
     },
-    -- markdown table
-    {
-        "junegunn/vim-easy-align",
-        config = function()
-            vim.keymap.set('x', 'ga', ':EasyAlign*|<Enter>', { silent = true, noremap = true })
-        end
-    },
     -- copilot
     {
         "github/copilot.vim",

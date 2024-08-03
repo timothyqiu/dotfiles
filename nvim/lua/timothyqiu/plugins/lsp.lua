@@ -1,50 +1,76 @@
 return {
     {
         'VonHeikemen/lsp-zero.nvim',
-        branch = 'v1.x',
+        branch = 'v3.x',
         dependencies = {
             -- LSP Support
-            {'neovim/nvim-lspconfig'},             -- Required
-            {'williamboman/mason.nvim'},           -- Optional
-            {'williamboman/mason-lspconfig.nvim'}, -- Optional
+            { 'neovim/nvim-lspconfig' },
+            { 'williamboman/mason.nvim' },
+            { 'williamboman/mason-lspconfig.nvim' },
 
             -- Autocompletion
-            {'hrsh7th/nvim-cmp'},         -- Required
-            {'hrsh7th/cmp-nvim-lsp'},     -- Required
-            {'hrsh7th/cmp-buffer'},       -- Optional
-            {'hrsh7th/cmp-path'},         -- Optional
-            {'saadparwaiz1/cmp_luasnip'}, -- Optional
-            {'hrsh7th/cmp-nvim-lua'},     -- Optional
+            { 'hrsh7th/nvim-cmp' },
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-nvim-lua' },
+            { 'hrsh7th/cmp-path' },
+            { 'hrsh7th/cmp-buffer' },
+            { 'saadparwaiz1/cmp_luasnip' },
+            { 'onsails/lspkind.nvim' },
 
             -- Snippets
-            {'L3MON4D3/LuaSnip'},             -- Required
-            {'rafamadriz/friendly-snippets'}, -- Optional
+            { 'L3MON4D3/LuaSnip' },
+            { 'rafamadriz/friendly-snippets' },
         },
         config = function()
-            local lsp = require("lsp-zero")
-            lsp.preset("recommended")
-            lsp.setup_nvim_cmp {
-                select_behavior = 'insert',
-            }
-            lsp.nvim_workspace()
-            lsp.on_attach(function (_, bufnr)
-                local opts = {buffer = bufnr, remap = false}
+            local lsp_zero = require("lsp-zero")
 
-                vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-                vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-                vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-                vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-                vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-                vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-
-                vim.diagnostic.config({
-                    virtual_text = true
-                })
+            lsp_zero.on_attach(function(_, bufnr)
+                lsp_zero.default_keymaps({ buffer = bufnr })
             end)
-            lsp.setup()
 
-            require("lspconfig").zls.setup{}
-            require("lspconfig").ols.setup{}
+            require('lspconfig').zls.setup({})
+
+            require("mason").setup({})
+            require("mason-lspconfig").setup({
+                ensure_installed = {},
+                handlers = {
+                    function(server_name)
+                        require("lspconfig")[server_name].setup({})
+                    end,
+
+                    lua_ls = function()
+                        local lua_opts = lsp_zero.nvim_lua_ls()
+                        require("lspconfig").lua_ls.setup(lua_opts)
+                    end,
+                },
+            })
+
+            local cmp = require("cmp");
+            require('luasnip.loaders.from_vscode').lazy_load()
+            cmp.setup({
+                sources = {
+                    { name = "path" },
+                    { name = "nvim_lsp" },
+                    { name = "nvim_lua" },
+                    { name = "buffer",  keyword_length = 3 },
+                    { name = "luasnip", keyword_length = 2 },
+                },
+                mapping = cmp.mapping.preset.insert({
+                    ['<CR>'] = cmp.mapping.confirm({ select = false }),
+                }),
+                preselect = "item",
+                completion = {
+                    completeopt = "menu,menuone,noinsert",
+                },
+                formatting = {
+                    fields = { 'abbr', 'kind', 'menu' },
+                    format = require("lspkind").cmp_format({
+                        mode = 'symbol',
+                        maxwidth = 30,
+                        ellipsis_char = '...',
+                    }),
+                },
+            })
 
             -- add command :A to :ClangdSwitchSourceHeader
             vim.api.nvim_create_user_command("A", "ClangdSwitchSourceHeader", {})
