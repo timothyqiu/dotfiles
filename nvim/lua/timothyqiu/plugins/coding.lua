@@ -11,16 +11,13 @@ return {
     -- comment
     {
         "terrortylor/nvim-comment",
+        dependencies = {
+            { "JoosepAlviste/nvim-ts-context-commentstring" },
+        },
         config = function()
-            require("nvim_comment").setup()
-
-            local group = vim.api.nvim_create_augroup('set-commentstring-ag', {})
-            local autocmd = vim.api.nvim_create_autocmd
-            autocmd({ "BufEnter", "BufFilePost" }, {
-                group = group,
-                pattern = "*.cpp,*.h,*.zig",
-                callback = function()
-                    vim.api.nvim_buf_set_option(0, "commentstring", "// %s")
+            require("nvim_comment").setup({
+                hook = function ()
+                    require('ts_context_commentstring.internal').update_commentstring()
                 end
             })
         end,
