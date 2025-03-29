@@ -21,8 +21,9 @@ return {
             vim.keymap.set("n", "<leader>ps", builtin.live_grep, {})
             vim.keymap.set("n", "<leader>pg", builtin.grep_string, {})
 
-            -- Document Symbols
+            -- Symbols
             vim.keymap.set("n", "<leader>ds", builtin.lsp_document_symbols, {})
+            vim.keymap.set("n", "<leader>ws", builtin.lsp_workspace_symbols, {})
         end
     },
 }
