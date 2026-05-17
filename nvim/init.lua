@@ -18,8 +18,13 @@ vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "80,100"
 vim.opt.cursorline = true
 
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
 vim.opt.listchars="tab:→ ,trail:␣"
 vim.opt.list = true
+
+vim.opt.exrc = true
 
 vim.opt.wildignore = {
     '*.a',
@@ -27,6 +32,15 @@ vim.opt.wildignore = {
     '*.o',
     '*.swp',
 }
+
+vim.lsp.log.set_level("OFF")
+vim.diagnostic.config({ virtual_text = true })
+
+vim.filetype.add({
+  pattern = {
+    ['.*/*.inc'] = 'cpp',
+  },
+})
 
 require('keymaps')
 require('plugins')

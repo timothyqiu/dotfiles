@@ -2,8 +2,10 @@ local packages = {
     'savq/paq-nvim',
     'nvim-lualine/lualine.nvim',
     'tpope/vim-surround',
-    'tpope/vim-fugitive',
+    'tpope/vim-repeat',
+    'tpope/vim-sleuth',
     'tpope/vim-vinegar',
+    'tpope/vim-unimpaired',
     'github/copilot.vim',
 
     { 'catppuccin/nvim', as = 'catppuccin' },
@@ -22,6 +24,8 @@ local packages = {
     'hrsh7th/nvim-cmp',
     'hrsh7th/cmp-vsnip',
     'hrsh7th/vim-vsnip',
+
+    'lewis6991/gitsigns.nvim',
 }
 
 local function setup_plugins()
@@ -70,41 +74,49 @@ local function setup_plugins()
     end, { expr = true })
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+    -- require("nvim-autopairs").setup {}
+
     -- LSP
-    require('lspconfig').zls.setup {
-        capabilities = capabilities,
-    }
+    vim.lsp.config('*', { capabilities = capabilities })
+    vim.lsp.enable('zls')
     require('mason').setup()
     require('mason-lspconfig').setup {
         ensure_installed = { 'clangd' },
-        handlers = {
-            function(server_name)
-                require('lspconfig')[server_name].setup {
-                    capabilities = capabilities,
-                }
-            end
-        }
     }
-    vim.api.nvim_create_user_command('A', 'ClangdSwitchSourceHeader', {})
+    vim.api.nvim_create_user_command('A', 'LspClangdSwitchSourceHeader', {})
 
     -- GitHub Copilot
-    vim.g.copilot_filetypes = { ['*'] = false, cpp = true, c = true }
-    vim.g.copilot_no_tab_map = true
+    vim.g.copilot_filetypes = { ['*'] = false, cpp = true, c = true, zig = true, python = true, html = true }
     vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
         expr = true,
         replace_keycodes = false
     })
+    vim.g.copilot_no_tab_map = true
 
     -- Syntax Highlight
     require('nvim-treesitter.configs').setup {
         highlight = { enable = true },
         indent = { enable = true },
+        incremental_selection = {
+            enable = true,
+            keymaps = {
+                init_selection = "<Enter>",
+                node_incremental = "<Enter>",
+                scope_incremental = false,
+                node_decremental = "<Backspace>",
+            },
+        },
+    }
+    require("treesitter-context").setup {
+        max_lines = 8,
     }
 
     -- Navigation
     local builtin = require('telescope.builtin')
     vim.keymap.set('n', '<C-P>', builtin.find_files)
-    vim.keymap.set('n', '<leader>fg', builtin.live_grep)
+    vim.keymap.set('n', '<leader>gS', builtin.live_grep)
+    vim.keymap.set('n', '<leader>gs', builtin.grep_string)
+    vim.keymap.set('n', '<leader>ds', builtin.lsp_document_symbols)
 end
 
 local function clone_paq()

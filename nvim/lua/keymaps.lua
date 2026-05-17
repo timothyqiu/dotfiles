@@ -9,6 +9,12 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 -- replace
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
+-- jump in quickfix and location list
+vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<leader>j", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<leader>k", "<cmd>lprev<CR>zz")
+
 -- lsp
 vim.keymap.set("n", "<F2>", vim.lsp.buf.rename)
 vim.keymap.set("n", "<F3>", function() vim.lsp.buf.format({async = true}) end)
