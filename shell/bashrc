@@ -2,6 +2,7 @@
 # ~/.bashrc
 #
 
+[ -d "${HOME}/.cache/.bun/bin" ] && export PATH="${HOME}/.cache/.bun/bin:${PATH}"
 [ -d "${HOME}/bin" ] && export PATH="${HOME}/bin:${PATH}"
 
 # If not running interactively, don't do anything
@@ -19,8 +20,9 @@ else
 	export PS1='\u@\h \W \$ '
 fi
 
-. "$HOME/.asdf/asdf.sh"
-. "$HOME/.asdf/completions/asdf.bash"
+HISTCONTROL=ignorespace
+HISTSIZE=1000
+HISTFILESIZE=2000
 
 hash nvim 2>/dev/null && export EDITOR=nvim
 
@@ -29,20 +31,29 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias tree='tree --gitignore'
+alias tree='tree --gitignore -I "*.uid|*.import"'
 alias n='nvim'
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
 
 # Godot Stuff
 alias gdrg="rg --sort path -g'!thirdparty' -g'!*.po*'"
 alias cg="cd ${HOME}/repos/godot-master"
+alias cgt="tmux new -A -s godot-master -c ${HOME}/repos/godot-master"
 alias cg3="cd ${HOME}/repos/godot-3.x"
 
-function gi() {
-	curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;
-}
+alias xephyr="Xephyr -br -ac -noreset -screen 1024x768 :1"
+
+alias opencode='HTTPS_PROXY=http://127.0.0.1:7890 opencode'
+
 function setproxy() {
 	export {http,https,ftp}_proxy='http://127.0.0.1:7890'
 } 
 function unsetproxy() {
 	unset {http,https,ftp}_proxy
 }
+
+export LSAN_OPTIONS=suppressions=/home/timothy/SynologyDrive/tmp/lsan.supp
+export DRI_PRIME=0
+
+export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
