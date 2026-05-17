@@ -3,6 +3,7 @@
 	name = Haoyu Qiu
 [core]
 	excludesfile = ~/.config/git/ignore
+	pager = diffr | less
 [color]
 	ui = true
 [advice]
@@ -15,7 +16,8 @@
 	co = checkout
 	br = branch
 	lg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
-    lsbr = for-each-ref --sort=committerdate refs/heads/ --format='%(color:green)%(committerdate:iso)%(color:reset) (%(committerdate:relative)) %(color:yellow)%(refname:short)%(color:reset) %(contents:subject)'
+	lga = lg --all
+	lsbr = for-each-ref --sort=committerdate refs/heads/ --format='%(color:green)%(committerdate:iso)%(color:reset) (%(committerdate:relative)) %(color:yellow)%(refname:short)%(color:reset) %(contents:subject)'
 [pull]
 	ff = only
 [init]
@@ -27,3 +29,5 @@
 [diff "lockb"]
 	binary = true
 	textconv = bun
+[interactive]
+	difffilter = perl /usr/share/git/diff-highlight/diff-highlight
