@@ -3,6 +3,7 @@
 #
 
 [ -d "${HOME}/.cache/.bun/bin" ] && export PATH="${HOME}/.cache/.bun/bin:${PATH}"
+[ -d "${HOME}/.cargo/bin" ] && export PATH="${HOME}/.cargo/bin:${PATH}"
 [ -d "${HOME}/bin" ] && export PATH="${HOME}/bin:${PATH}"
 
 # If not running interactively, don't do anything
