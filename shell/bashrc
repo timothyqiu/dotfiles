@@ -2,12 +2,12 @@
 # ~/.bashrc
 #
 
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
 [ -d "${HOME}/.cache/.bun/bin" ] && export PATH="${HOME}/.cache/.bun/bin:${PATH}"
 [ -d "${HOME}/.cargo/bin" ] && export PATH="${HOME}/.cargo/bin:${PATH}"
 [ -d "${HOME}/bin" ] && export PATH="${HOME}/bin:${PATH}"
-
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
 
 if [ -f "/usr/share/git/completion/git-prompt.sh" ]; then
 	# To disable check for dirty state in a repository:
@@ -49,7 +49,7 @@ alias opencode='HTTPS_PROXY=http://127.0.0.1:7890 opencode'
 
 function setproxy() {
 	export {http,https,ftp}_proxy='http://127.0.0.1:7890'
-} 
+}
 function unsetproxy() {
 	unset {http,https,ftp}_proxy
 }
