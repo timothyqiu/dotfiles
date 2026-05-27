@@ -34,6 +34,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias tree='tree --gitignore -I "*.uid|*.import"'
 alias n='nvim'
+alias z='zeditor'
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 
