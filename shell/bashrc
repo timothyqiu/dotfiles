@@ -46,7 +46,7 @@ alias cg3="cd ${HOME}/repos/godot-3.x"
 
 alias xephyr="Xephyr -br -ac -noreset -screen 1024x768 :1"
 
-alias opencode='HTTPS_PROXY=http://127.0.0.1:7890 opencode'
+# alias opencode='HTTPS_PROXY=http://127.0.0.1:7890 opencode'
 
 function setproxy() {
 	export {http,https,ftp}_proxy='http://127.0.0.1:7890'
