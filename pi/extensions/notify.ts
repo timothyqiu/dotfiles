@@ -9,6 +9,7 @@
  */
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { execFile } from "child_process";
 
 function windowsToastScript(title: string, body: string): string {
 	const type = "Windows.UI.Notifications";
@@ -34,8 +35,33 @@ function notifyOSC99(title: string, body: string): void {
 }
 
 function notifyWindows(title: string, body: string): void {
-	const { execFile } = require("child_process");
 	execFile("powershell.exe", ["-NoProfile", "-Command", windowsToastScript(title, body)]);
+}
+
+async function playSound(): Promise<void> {
+	// Try common sound players in order of preference
+	const soundPath = "/usr/share/sounds/Yaru/stereo/message-new-instant.oga";
+	const players = [
+		{ cmd: "paplay", args: [soundPath] },
+		{ cmd: "canberra-gtk-play", args: ["-f", soundPath] },
+		{ cmd: "play", args: [soundPath, "-q"] },
+		{ cmd: "aplay", args: [soundPath, "-q"] },
+	];
+
+	for (const player of players) {
+		try {
+			await new Promise<void>((resolve, reject) => {
+				execFile(player.cmd, player.args, (error: Error | null) => {
+					if (error) reject(error);
+					else resolve();
+				});
+			});
+			// Sound played successfully, stop trying
+			return;
+		} catch {
+			// Try next player
+		}
+	}
 }
 
 function notify(title: string, body: string): void {
@@ -46,6 +72,7 @@ function notify(title: string, body: string): void {
 	} else {
 		notifyOSC777(title, body);
 	}
+	playSound();
 }
 
 export default function (pi: ExtensionAPI) {
